@@ -1,0 +1,9 @@
+﻿@{
+    string ControllerName = ViewContext.RouteData.Values["controller"].ToString();
+    switch (ControllerName)
+    {
+        case "Ticket":
+            Layout = "~/ Views / Shared / _BackstageLayout.cshtml";
+            break;
+    }
+}
