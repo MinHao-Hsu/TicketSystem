@@ -1,9 +1,11 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
+using System.Text.Json;
 using System.Threading.Tasks;
 using Ticket_System_Design.Models;
 
@@ -21,6 +23,18 @@ namespace Ticket_System_Design.Controllers
 
         public IActionResult Index()
         {
+            if (HttpContext.Session.Keys.Contains(CDictionary.SK_LOGINED_USER))//Seesion會員登入資料偵測
+            {
+                User user = JsonSerializer.Deserialize<User>(HttpContext.Session.GetString(CDictionary.SK_LOGINED_USER));
+                UserLogin.user = user;
+                ViewBag.USER = UserLogin.user.UserName;
+            }
+            else
+            {
+                ViewBag.USER = null;
+                UserLogin.user = null;
+            }
+            
             return View();
         }
 
