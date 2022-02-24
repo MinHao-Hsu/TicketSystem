@@ -13,27 +13,28 @@ namespace Ticket_System_Design.Controllers
 {
     public class HomeController : Controller
     {
+        private readonly TicketSystemContext db;
         private readonly ILogger<HomeController> _logger;
 
-        public HomeController(ILogger<HomeController> logger)
+        public HomeController(ILogger<HomeController> logger,TicketSystemContext dbcontext)
         {
-
+            db = dbcontext;
             _logger = logger;
         }
 
         public IActionResult Index()
         {
-            if (HttpContext.Session.Keys.Contains(CDictionary.SK_LOGINED_USER))//Seesion會員登入資料偵測
-            {
-                User user = JsonSerializer.Deserialize<User>(HttpContext.Session.GetString(CDictionary.SK_LOGINED_USER));
-                UserLogin.user = user;
-                ViewBag.USER = UserLogin.user.UserName;
-            }
-            else
-            {
-                ViewBag.USER = null;
-                UserLogin.user = null;
-            }
+            //if (HttpContext.Session.Keys.Contains(CDictionary.SK_LOGINED_USER))//Seesion會員登入資料偵測
+            //{
+            //    User user = JsonSerializer.Deserialize<User>(HttpContext.Session.GetString(CDictionary.SK_LOGINED_USER));
+            //    UserLogin.user = user;
+            //    ViewBag.USER = UserLogin.user.UserName;
+            //}
+            //else//沒有登入資料
+            //{
+            //    ViewBag.USER = null;
+            //    UserLogin.user = null;
+            //}
             
             return View();
         }
